@@ -1,0 +1,2 @@
+
+GET http://localhost/dakit711/assign1-web2/assign1/api/test.php? HTTP/1.1
