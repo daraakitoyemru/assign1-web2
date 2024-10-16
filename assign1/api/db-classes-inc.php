@@ -20,14 +20,40 @@ class Circuits
         return $statement->fetchAll();
     }
 
-    public function getCircuitsByName($circuitName)
+    public function getCircuitsByRef($ref)
     {
         $sql = self::$baseSQl . " WHERE circuitRef=?";
-        $statement = DBHelper::runQuery($this->pdo, $sql, $circuitName);
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         return $statement->fetchAll();
     }
+
+
 }
 
+class Constructor
+{
+    private $pdo;
+    private static $baseSQL = 'SELECT constructorId,constructorRef,name,nationality,url FROM constructors';
+    public function __construct($conn)
+    {
+        $this->pdo = $conn;
+    }
 
+    public function getAllContstructors()
+    {
+
+        $sql = self::$baseSQL;
+        $statement = DBHelper::runQuery($this->pdo, $sql, null);
+        return $statement->fetchAll();
+    }
+
+    public function getConstructorByRef($ref)
+    {
+        $sql = self::$baseSQL . " WHERE constructorRef = ?";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
+    }
+
+}
 
 ?>
