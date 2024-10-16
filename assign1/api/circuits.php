@@ -1,6 +1,7 @@
 <?php
 
 require_once './db-classes-inc.php';
+require '../helpers/helperFunc.inc.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -16,7 +17,7 @@ try {
 
     $circuitGateway = new Circuits($conn);
     if (isCorrectQuery('ref')) {
-        $results = $circuitGateway->getCircuitsByName($_GET['ref']);
+        $results = $circuitGateway->getCircuitsByRef($_GET['ref']);
     } else {
         $results = $circuitGateway->getAllCircuits();
     }
@@ -24,12 +25,6 @@ try {
 } catch (PDOException $e) {
     die($e->getMessage());
 }
-function isCorrectQuery($param)
-{
-    if (isset($_GET[$param]) && !empty($_GET[$param])) {
-        return true;
-    }
-    return false;
-}
+
 
 ?>
