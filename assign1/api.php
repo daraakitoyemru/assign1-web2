@@ -20,14 +20,21 @@
 
 <main>
     <section class="main-content">
-        <h2>URL</h2>
-        <a href="">a link</a>
-        <a href="">a link</a>
-        <a href="">a link</a>
-        <a href="">a link</a>
-        <a href="">a link</a>
+        <div class="column-1">
+            <h2>URL</h2>
+            <a href="">/api/circuits.php</a>
+            <a href="">/api/circuits.php?ref=monaco</a>
+            <a href="">/api/constructors.php</a>
+            <a href="">/api/constructors.php?ref=mclaren</a>
+        </div>
+        <div class="column-2">
+            <h2>Description</h2>
+            <p>Returns all the circuits</p>
+            <p>Return just a specific circuit</p>
+            <p>Returns all the constructors</p>
+            <p>Returns just a specific constructor</p>
+        </div>
     </section>
-
 </main>
 
 <footer>
