@@ -11,20 +11,16 @@
 <header>
     <h1>F1 DASHBOARD PROJECT</h1>
     <nav>
-        <a href="#home">Home</a>
-        <a href="browse.php">Browse</a>
+        <a href="index.php">Home</a>
+        <a href="#browse">Browse</a>
         <a href="#apis">APIs</a>
     </nav>
 </header>
 
 <main>
     <aside>
-        <p>This website was created for Assignment 1 of COMP3512 at Mount Royal University. 
-            The focus of the project is to explore web development technologies such as HTML, CSS, and PHP
-            we can add more description stuff later</p>
-        <p class="group-members">Group Members: Dara, Viktoriya</p>
-        <a href="https://github.com/daraakitoyemru/assign1-web2" target="_blank" class="github-link"><strong>GitHub Repository</strong></a> <br/>
-        <a href="browse.php" class="browse-btn">Browse</a>
+        <h2>Races of the season</h2>
+        <p>stuff!</p>
     </aside>
 
     <section class="main-content">

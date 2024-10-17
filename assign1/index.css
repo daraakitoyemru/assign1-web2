@@ -4,10 +4,6 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
-    /* background: url(images/Checkers.png); */
-    /* background-repeat: repeat;
-    background-size: 100px 100px; 
-    background-position: top left; */
 }
 
 header {
@@ -83,16 +79,7 @@ aside .browse-btn {
 }
 
 aside .browse-btn:hover {
-    /* background-color: #ce4a11; */
-    background: url(images/Checkers.png);
-    background-repeat: repeat;
-    background-size: 70px 70px; 
-    background-position: top left;
-    color: white;
-    text-shadow: -1px 1px 0 #000,
-                1px 1px 0 #000,
-                1px -1px 0 #000,
-                -1px -1px 0 #000;
+    background-color: #ce4a11;
 }
 
 section.main-content {
