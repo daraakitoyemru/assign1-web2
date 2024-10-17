@@ -7,10 +7,10 @@ header("Access-Control-Allow-Origin: *");
 try {
     $conn = DBHelper::createConnection(DBCONNSTRING);
     $resultsGateway = new Results($conn);
-    if (isCorrectQuery('ref')) {
-        $results = $resultsGateway->getResultsByRaceID($_GET['ref']);
-    } else if (isCorrectQuery('driver')) {
-        $results = $resultsGateway->getResultsByDriver($_GET['driver']);
+    if (isCorrectQuery('resRef')) {
+        $results = $resultsGateway->getResultsByRaceID($_GET['resRef']);
+    } else if (isCorrectQuery('driverRes')) {
+        $results = $resultsGateway->getResultsByDriver($_GET['driverRes']);
     }
     echo json_encode($results, JSON_NUMERIC_CHECK, JSON_PRETTY_PRINT);
 } catch (PDOException $e) {

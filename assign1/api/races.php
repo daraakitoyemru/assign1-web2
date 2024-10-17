@@ -8,8 +8,8 @@ try {
     $conn = DBHelper::createConnection(DBCONNSTRING);
     $racesGateway = new Races($conn);
 
-    if (isCorrectQuery('ref')) {
-        $results = $racesGateway->getRacesbyRef($_GET['ref']);
+    if (isCorrectQuery('racesRef')) {
+        $results = $racesGateway->getRacesbyRef($_GET['racesRef']);
     } else {
         $results = $racesGateway->getRaces2022();
     }

@@ -8,8 +8,8 @@ try {
     $conn = DBHelper::createConnection(DBCONNSTRING);
     $driversGateway = new Drivers($conn);
 
-    if (isCorrectQuery('ref')) {
-        $results = $driversGateway->getDriversByRef($_GET['ref']);
+    if (isCorrectQuery('driverRef')) {
+        $results = $driversGateway->getDriversByRef($_GET['driverRef']);
     } else if (isCorrectQuery('race')) {
         $results = $driversGateway->getDriversByRace($_GET['race']);
     } else {

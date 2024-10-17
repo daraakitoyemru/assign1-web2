@@ -16,8 +16,8 @@ try {
     $conn = DBHelper::createConnection(DBCONNSTRING);
 
     $circuitGateway = new Circuits($conn);
-    if (isCorrectQuery('ref')) {
-        $results = $circuitGateway->getCircuitsByRef($_GET['ref']);
+    if (isCorrectQuery('circuitRef')) {
+        $results = $circuitGateway->getCircuitsByRef($_GET['circuitRef']);
     } else {
         $results = $circuitGateway->getAllCircuits();
     }
