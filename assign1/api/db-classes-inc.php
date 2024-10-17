@@ -87,4 +87,50 @@ class Drivers
     }
 }
 
+class Races
+{
+    private $pdo;
+    private static $baseSQL = "select c.name , c.location, c.country, r.date , r.url , r.round, r.year, r.time from races r
+    JOIN circuits c on c.circuitId = r.circuitId";
+    public function __construct($conn)
+    {
+        $this->pdo = $conn;
+    }
+
+    public function getRacesbyRef($ref)
+    {
+        $sql = self::$baseSQL . " where c.circuitId =?";
+
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
+    }
+
+    public function getRaces2022()
+    {
+        $sql = self::$baseSQL . " where r.year = 2022 order by r.round";
+        $statement = DBHelper::runQuery($this->pdo, $sql, null);
+        return $statement->fetchAll();
+    }
+}
+
+class Qualifying
+{
+    private $pdo;
+    private static $baseSQL = "select q.position, q.q1, q.q2, q.q3, q.number, d.driverRef, d.code, d.forename, d.surname, r.name, r.round, r.year,
+    r.date, c.name, c.constructorRef, c.nationality from qualifying q 
+    join drivers d on q.driverId = d.driverId 
+    join races r on r.raceId = q.raceId 
+    join constructors c on c.constructorId = q.constructorId";
+    public function __construct($conn)
+    {
+        $this->pdo = $conn;
+    }
+    public function getQualifyingByRaceID($ref)
+    {
+        $sql = self::$baseSQL . " where r.raceId =? order by q.position";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
+    }
+}
+
 ?>

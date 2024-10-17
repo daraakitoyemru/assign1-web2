@@ -6,16 +6,12 @@ header("Access-Control-Allow-Origin: *");
 
 try {
     $conn = DBHelper::createConnection(DBCONNSTRING);
-    $constructorGateway = new Constructor($conn);
+    $qualifyingGateway = new Qualifying($conn);
     if (isCorrectQuery('ref')) {
-        $constructorResults = $constructorGateway->getConstructorByRef($_GET['ref']);
-    } else {
-        $constructorResults = $constructorGateway->getAllContstructors();
+        $results = $qualifyingGateway->getQualifyingByRaceID($_GET['ref']);
     }
-
-    echo json_encode($constructorResults, JSON_NUMERIC_CHECK, JSON_PRETTY_PRINT);
+    echo json_encode($results, JSON_NUMERIC_CHECK, JSON_PRETTY_PRINT);
 
 } catch (PDOException $e) {
     die($e->getMessage());
 }
-
