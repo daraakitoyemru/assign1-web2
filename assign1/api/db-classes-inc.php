@@ -127,10 +127,41 @@ class Qualifying
     }
     public function getQualifyingByRaceID($ref)
     {
-        $sql = self::$baseSQL . " where r.raceId =? order by q.position";
+        $sql = self::$baseSQL . " where r.raceId =? order by q.position ASC";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         return $statement->fetchAll();
     }
+}
+
+class Results
+{
+    private $pdo;
+    private static $baseSQL = "SELECT res.number,res.grid, res.position, res.positionText, res.positionOrder, res.points, res.laps, res.time,
+    res.milliseconds, res.fastestLap, res.rank, res.fastestLapTime, res.fastestLapSpeed, d.driverRef, d.code, d.forename, d.surname,
+     r.name, r.round, r.year, r.date, c.name, c.constructorRef, c.nationality
+    from results res
+    join drivers d on d.driverId = res.driverId 
+    join races r on r.raceId = res.raceId 
+    join constructors c on c.constructorId = res.constructorId";
+    public function __construct($conn)
+    {
+        $this->pdo = $conn;
+    }
+
+    public function getResultsByRaceID($ref)
+    {
+        $sql = self::$baseSQL . " where r.raceId =? order by res.grid ASC";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
+    }
+
+    public function getResultsByDriver($ref)
+    {
+        $sql = self::$baseSQL . " where LOWER(d.forename || '_' || d.surname)=?";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
+    }
+
 }
 
 ?>
