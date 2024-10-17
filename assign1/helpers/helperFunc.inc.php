@@ -1,5 +1,5 @@
 <?php
-require_once './db-classes-inc.php';
+require_once 'api/db-helper.inc.php';
 function isCorrectQuery($param)
 {
     if (isset($_GET[$param]) && !empty($_GET[$param])) {
