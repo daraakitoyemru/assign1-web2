@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COMP3512 Assignment #1</title>
-    <link rel="stylesheet" href="driver.css">
+    <link rel="stylesheet" href="constructor.css">
 
 </head>
 <body>
@@ -22,15 +22,13 @@
     <aside>
         <h2>Driver Details</h2>
         <p>Name:</p>
-        <p>DoB:</p>
-        <p>Age:</p>
         <p>Nationality:</p>
         <p>URL:</p>
     </aside>
 
     <section class="main-content">
         <h2>Race Details</h2>
-        <p>Rnd, Curcuit, Pos, Points</p>
+        <p>Rnd, Curcuit, Driver, Pos, Points</p>
     </section>
 </main>
 
