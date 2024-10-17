@@ -7,8 +7,8 @@ header("Access-Control-Allow-Origin: *");
 try {
     $conn = DBHelper::createConnection(DBCONNSTRING);
     $constructorGateway = new Constructor($conn);
-    if (isCorrectQuery('ref')) {
-        $constructorResults = $constructorGateway->getConstructorByRef($_GET['ref']);
+    if (isCorrectQuery('constructorRef')) {
+        $constructorResults = $constructorGateway->getConstructorByRef($_GET['constructorRef']);
     } else {
         $constructorResults = $constructorGateway->getAllContstructors();
     }
