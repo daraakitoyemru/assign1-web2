@@ -1,3 +1,41 @@
+<?php
+require_once'api/db-classes-inc.php';
+require_once 'api/db-helper.inc.php';
+require_once 'api/config.inc.php';
+
+// Set default values for driver details
+$driverName = "Not Available";
+$driverNationality = "Not Available";
+$driverURL = "#";
+
+// Check if 'driverRef' is provided in the URL
+if (isset($_GET['driverRef'])) {
+    try {
+        // Create a database connection
+        $conn = DBHelper::createConnection(DBCONNSTRING);
+
+        // Create an instance of the Drivers class
+        $driversGateway = new Drivers($conn);
+
+        // Get the driver details by reference
+        $driverDetails = $driversGateway->getDriversByRef($_GET['driverRef']);
+
+        // If driver details are found, update the variables
+        if (!empty($driverDetails)) {
+            $driver = $driverDetails[0];
+            $driverName = $driver['forename'] . ' ' . $driver['surname'];
+            $driverNationality = $driver['nationality'];
+            $driverURL = $driver['url'];
+        }
+
+    } catch (PDOException $e) {
+        echo "Error fetching driver details: " . $e->getMessage();
+    }
+} else {
+    echo "No driver reference provided.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,9 +59,9 @@
 <main>
     <aside>
         <h2>Driver Details</h2>
-        <p>Name:</p>
-        <p>Nationality:</p>
-        <p>URL:</p>
+        <p><strong>Name:</strong> <?php echo $driverName; ?></p>
+        <p><strong>Nationality:</strong> <?php echo $driverNationality; ?></p>
+        <p><strong>URL:</strong> <a href="<?php echo $driverURL; ?>" target="_blank">More Info</a></p>
     </aside>
 
     <section class="main-content">
