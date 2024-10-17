@@ -19,8 +19,11 @@ function getGateway($classname)
         $gateway = new $classname($conn);
         return $gateway;
     } catch (Exception $e) {
-        die($e->getMessage());
+        //for easier error checking when making sure a gateway was in fact created
+        error_log($e->getMessage());
+        return null;
     } catch (PDOException $e) {
-        die($e->getMessage());
+        error_log($e->getMessage());
+        return null;
     }
 }
