@@ -33,7 +33,7 @@ class Circuits
 class Constructor
 {
     private $pdo;
-    private static $baseSQL = 'SELECT constructorId,constructorRef,name,nationality,url FROM constructors';
+    private static $baseSQL = "SELECT constructorId,constructorRef,name,nationality,url FROM constructors";
     public function __construct($conn)
     {
         $this->pdo = $conn;
@@ -49,11 +49,42 @@ class Constructor
 
     public function getConstructorByRef($ref)
     {
-        $sql = self::$baseSQL . " WHERE constructorRef = ?";
+        $sql = self::$baseSQL . " WHERE constructorRef=?";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         return $statement->fetchAll();
     }
 
+}
+
+class Drivers
+{
+    private $pdo;
+    private static $baseSQL = "SELECT driverId,driverRef,number,code,forename,surname,dob,nationality,url FROM drivers";
+    public function __construct($conn)
+    {
+        $this->pdo = $conn;
+    }
+
+    public function getAllDrivers()
+    {
+        $sql = self::$baseSQL;
+        $statement = DBHelper::runQuery($this->pdo, $sql, null);
+        return $statement->fetchAll();
+    }
+
+    public function getDriversByRef($ref)
+    {
+        $sql = self::$baseSQL . " WHERE driverRef=?";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
+    }
+    public function getDriversByRace($raceID)
+    {
+        $sql = "SELECT d.driverId,d.driverRef,d.number,d.code,d.forename,d.surname,d.dob,d.nationality,d.url FROM drivers d
+        JOIN results r ON r.driverId = d.driverId where r.raceId =?";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $raceID);
+        return $statement->fetchAll();
+    }
 }
 
 ?>
