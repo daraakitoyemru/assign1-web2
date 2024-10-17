@@ -11,9 +11,9 @@
 <header>
     <h1>F1 DASHBOARD PROJECT</h1>
     <nav>
-        <a href="#home">Home</a>
+        <a href="index.php">Home</a>
         <a href="browse.php">Browse</a>
-        <a href="#apis">APIs</a>
+        <a href="api.php">APIs</a>
     </nav>
 </header>
 
@@ -33,7 +33,7 @@
 </main>
 
 <footer>
-    &copy; 2024 COMP3512 Assignment #1. All Rights Reserved.
+    &copy; 2024 COMP3512 Assignment #1.
 </footer>
 
 </body>

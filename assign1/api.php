@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COMP3512 Assignment #1</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="browse.css">
+    <link rel="stylesheet" href="api.css">
 
 </head>
 <body>
@@ -20,15 +19,15 @@
 </header>
 
 <main>
-    <aside>
-        <h2>Races of the Season</h2>
-        <p>foreach array as row</p> 
-        <p>echo (number of row), name, button class="button" type="submit"</p>
-    </aside>
-
     <section class="main-content">
-        <p>Please select a race.</p>
+        <h2>URL</h2>
+        <a href="">a link</a>
+        <a href="">a link</a>
+        <a href="">a link</a>
+        <a href="">a link</a>
+        <a href="">a link</a>
     </section>
+
 </main>
 
 <footer>
