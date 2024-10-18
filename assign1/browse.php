@@ -6,19 +6,22 @@ require_once 'api/config.inc.php';
 $raceResults = [];
 $qualifyingResults = [];
 $selectedRaceId = null;
+$top3Winners = [];
+
 
 try {
     $conn = DBHelper::createConnection(DBCONNSTRING);
     $racesGateway = new Races($conn);
     $qualifyingGateway = new Qualifying($conn);
+    $resultsGateway = new Results($conn);
 
-
-    // Fetch the races for 2022
     $raceResults = $racesGateway->getRaces2022();
 
     if (isset($_POST['raceId'])) {
         $selectedRaceId = $_POST['raceId'];
         $qualifyingResults = $qualifyingGateway->getQualifyingByRaceID($selectedRaceId);
+        $allRaceResults = $resultsGateway->getResultsByRaceID($selectedRaceId);
+        $top3Winners = array_slice($allRaceResults, 0, 3);
     }
 
 } catch (PDOException $e) {
@@ -82,7 +85,33 @@ try {
         </aside>
 
         <section class="podium">
-            <p>podium stuff!</p>
+            <?php if (!empty($top3Winners)): ?>
+                <h3>Top 3 Winners for Race <?php echo $selectedRaceId; ?></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Driver</th>
+                            <th>Constructor</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($top3Winners as $winner): ?>
+                            <tr>
+                                <td><?php echo $winner['position']; ?></td>
+                                <td><?php echo $winner['forename'] . ' ' . $winner['surname']; ?></td>
+                                <td>
+                                    <a href="constructor.php?constructorRef=<?php echo $winner['constructorRef']; ?>">
+                                        <?php echo $winner['constructorRef']; ?>
+                                    </a>
+                                </td>
+                                <td><?php echo $winner['points']; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
         </section>
 
         <section class="main-content">
