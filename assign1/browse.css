@@ -46,13 +46,12 @@ nav a:hover {
 
 main {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 30% 70%;
   grid-template-rows: 1fr 1fr;
   margin: 20px;
 }
 
 aside {
-  width: 30%;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -71,16 +70,6 @@ aside ul {
   line-height: 1.6;
 }
 
-section.main-content {
-  width: 70%;
-}
-
-.race-car-img {
-  max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 footer {
   text-align: center;
   color: white;
@@ -92,11 +81,21 @@ footer {
 }
 
 .main-content {
-  width: 30%;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   margin: 0;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.podium {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 0;
+  grid-column: 2;
+  grid-row: 1;
 }
 
 table {

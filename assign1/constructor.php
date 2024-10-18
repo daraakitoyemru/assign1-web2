@@ -78,15 +78,15 @@ if (isset($_GET['constructorRef'])) {
                         <?php foreach ($raceResults as $result): ?>
                             <tr>
                                 <td><?php echo $result['round']; ?></td>
-                                <td><?php echo $result['circuitName']; // Circuit Name ?></td>
-                                <td><?php echo $result['forename'] . ' ' . $result['surname']; // Driver Name ?></td>
+                                <td><?php echo $result['circuitName']; ?></td>
+                                <td><?php echo $result['forename'] . ' ' . $result['surname']; ?></td>
                                 <td><?php echo $result['position']; ?></td>
                                 <td><?php echo $result['points']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5">No race results available for this driver.</td>
+                            <td colspan="5">No race results available for this constructor.</td>
                         </tr>
                     <?php endif;
 
