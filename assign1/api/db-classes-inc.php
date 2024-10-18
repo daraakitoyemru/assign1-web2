@@ -155,11 +155,31 @@ class Results
         return $statement->fetchAll();
     }
 
-    public function getResultsByDriver($ref)
-    {
-        $sql = self::$baseSQL . " where LOWER(d.forename || '_' || d.surname)=?";
+    // public function getResultsByDriver($ref)
+    // {
+    //     $sql = self::$baseSQL . " where LOWER(d.forename || '_' || d.surname)=?";
+    //     $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+    //     return $statement->fetchAll();
+
+    //     // Debug: Check if any results are fetched
+    //     if (empty($results)) {
+    //         echo "No race results found for the driver reference: $ref";
+    //     }
+
+    //     return $results;
+    // }
+
+    public function getResultsByDriver($ref) {
+        $sql = self::$baseSQL . " WHERE d.driverRef = ?";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
-        return $statement->fetchAll();
+        $results = $statement->fetchAll();
+    
+        // Debug: Check if any results are fetched
+        if (empty($results)) {
+            echo "No race results found for the driver reference: $ref";
+        }
+    
+        return $results;
     }
 
 }

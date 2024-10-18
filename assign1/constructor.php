@@ -3,29 +3,24 @@ require_once'api/db-classes-inc.php';
 require_once 'api/db-helper.inc.php';
 require_once 'api/config.inc.php';
 
-// Set default values for driver details
 $driverName = "Not Available";
 $driverNationality = "Not Available";
 $driverURL = "#";
+$raceResults = [];
 
-// Check if 'driverRef' is provided in the URL
 if (isset($_GET['driverRef'])) {
     try {
-        // Create a database connection
         $conn = DBHelper::createConnection(DBCONNSTRING);
-
-        // Create an instance of the Drivers class
         $driversGateway = new Drivers($conn);
-
-        // Get the driver details by reference
+        $resultsGateway = new Results($conn);
         $driverDetails = $driversGateway->getDriversByRef($_GET['driverRef']);
 
-        // If driver details are found, update the variables
         if (!empty($driverDetails)) {
             $driver = $driverDetails[0];
             $driverName = $driver['forename'] . ' ' . $driver['surname'];
             $driverNationality = $driver['nationality'];
             $driverURL = $driver['url'];
+            $raceResults = $resultsGateway->getResultsByDriver($_GET['driverRef']);
         }
 
     } catch (PDOException $e) {
@@ -66,7 +61,37 @@ if (isset($_GET['driverRef'])) {
 
     <section class="main-content">
         <h2>Race Details</h2>
-        <p>Rnd, Curcuit, Driver, Pos, Points</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Round</th>
+                    <th>Circuit</th>
+                    <th>Driver</th>
+                    <th>Position</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($raceResults)) : ?>
+                    <?php foreach ($raceResults as $result) : ?>
+                        <tr>
+                            <td><?php echo $result['round']; ?></td>
+                            <td><?php echo $result['name']; // Circuit Name ?></td>
+                            <td><?php echo $result['forename'] . ' ' . $result['surname']; // Driver Name ?></td>
+                            <td><?php echo $result['position']; ?></td>
+                            <td><?php echo $result['points']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="5">No race results available for this driver.</td>
+                    </tr>
+                <?php endif; 
+                
+                ?>
+
+            </tbody>
+        </table>
     </section>
 </main>
 
