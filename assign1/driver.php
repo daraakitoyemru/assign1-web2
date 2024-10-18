@@ -1,23 +1,28 @@
 <?php
-//require_once'/api/db-classes-inc.php';
-require_once 'api/db-classes-inc.php';
-require_once 'helpers/helperFunc.inc.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+//require_once './helpers/helperFunc.inc.php';
+
+include './helpers/helperFunc.inc.php';
+
 
 function outputhtml()
 {
-    $driversGateway = getGateway('Drivers');
-    if ($driversGateway) {
-        if (isCorrectQuery('driverRef')) {
-            foreach ($driversGateway->getDriversByRef($_GET['driverRef']) as $row) {
-                $s = '<p>Name: ' . $row["forename"] . ' ' . $row["surname"] . '</p>';
-                $s .= '<p>DOB: ' . $row["dob"] . '</p>';
-                $s .= '<p>Age: ' . $row["age"] . '</p>';
-                $s .= '<p>Nationality: ' . $row["nationality"] . '</p>';
-                $s .= '<p>URL: ' . $row["url"] . '</p>';
-            }
-        } else {
-            echo "error, soemthing went wrong";
+    $s = '';
+
+    if (isCorrectQuery('driverRef')) {
+        $api_url = 'http://localhost/dakit711/assign1-web2/assign1/api/drivers.php';
+        $content = file_get_contents($api_url . '?driverRef=' . urlencode($_GET['driverRef']));
+        $driver_data = json_decode($content, true);
+        foreach ($driver_data as $row) {
+            $s .= '<p>Name: ' . $row["forename"] . ' ' . $row["surname"] . '</p>';
+            $s .= '<p>DOB: ' . $row["dob"] . '</p>';
+            $s .= '<p>Nationality: ' . $row["nationality"] . '</p>';
+            $s .= '<p>URL: ' . $row["url"] . '</p>';
         }
+    } else {
+        echo "error, soemthing went wrong";
+
 
     }
     return $s;
@@ -49,7 +54,11 @@ function outputhtml()
         <aside>
 
             <h2>Driver Details</h2>
-            <?php echo outputhtml() ?>
+            <?php
+            if (isset($_GET['driverRef'])) {
+                echo outputhtml();
+            }
+            ?>
             <!-- <p>Name:</p>
             <p>DoB:</p>
             <p>Age:</p>

@@ -1,5 +1,8 @@
 <?php
-require_once 'api/db-helper.inc.php';
+
+//require_once '../api/db-helper.inc.php';
+
+
 function isCorrectQuery($param)
 {
     if (isset($_GET[$param]) && !empty($_GET[$param])) {
@@ -8,7 +11,7 @@ function isCorrectQuery($param)
     return false;
 }
 
-// creates an instance of a given object and returns it
+//creates an instance of a given object and returns it
 function getGateway($classname)
 {
     try {

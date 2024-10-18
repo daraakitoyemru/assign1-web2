@@ -1,6 +1,6 @@
 <?php
 
-require_once './db-classes-inc.php';
+require_once 'db-classes-inc.php';
 require '../helpers/helperFunc.inc.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
