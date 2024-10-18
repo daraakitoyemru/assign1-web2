@@ -1,5 +1,5 @@
 <?php
-require_once './db-classes-inc.php';
+require_once 'db-classes-inc.php';
 require '../helpers/helperFunc.inc.php';
 header('Content-type: application/json');
 header("Access-Control-Allow-Origin: *");
