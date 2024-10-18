@@ -11,7 +11,7 @@ function outputhtml()
     $s = '';
 
     if (isCorrectQuery('driverRef')) {
-        $api_url = 'http://localhost/dakit711/assign1-web2/assign1/api/drivers.php';
+        $api_url = 'http://localhost/assign1-web2/assign1/api/drivers.php';
         $content = file_get_contents($api_url . '?driverRef=' . urlencode($_GET['driverRef']));
         $driver_data = json_decode($content, true);
         foreach ($driver_data as $row) {
@@ -23,8 +23,30 @@ function outputhtml()
     } else {
         echo "error, soemthing went wrong";
 
+    }
+    return $s;
+}
+
+function outPutResultsForDriver($driver)
+{
+    $api_url = 'http://localhost/assign1-web2/assign1/api/results.php';
+    $s = '';
+    if (isCorrectQuery($driver)) {
+        $content = file_get_contents($api_url . '?driverRef=' . urlencode($_GET[$driver]));
+        $driver_data = json_decode($content, true);
+
+        foreach ($driver_data as $row) {
+            $s .= '<tr>';
+            $s .= '<td>' . $row['round'] . '</td>';
+            $s .= '<td>' . $row['race'] . '</td>';
+            $s .= '<td>' . $row['position'] . '</td>';
+            $s .= '<td>' . $row['points'] . '</td>';
+            $s .= '</tr>';
+        }
+
 
     }
+
     return $s;
 }
 ?>
@@ -68,7 +90,23 @@ function outputhtml()
 
         <section class="main-content">
             <h2>Race Details</h2>
-            <p>Rnd, Curcuit, Pos, Points</p>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Round</th>
+                        <th>Circuit</th>
+                        <th>Position</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, replace with actual data -->
+                    <?php if (isset($_GET['driverRef'])) {
+                        echo outPutResultsForDriver('driverRef');
+                    } ?>
+                </tbody>
+            </table>
+
         </section>
     </main>
 

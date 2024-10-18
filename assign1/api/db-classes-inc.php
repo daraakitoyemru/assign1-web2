@@ -138,7 +138,7 @@ class Results
     private $pdo;
     private static $baseSQL = "SELECT res.number,res.grid, res.position, res.positionText, res.positionOrder, res.points, res.laps, res.time,
     res.milliseconds, res.fastestLap, res.rank, res.fastestLapTime, res.fastestLapSpeed, d.driverRef, d.code, d.forename, d.surname,
-     r.name, r.round, r.year, r.date, c.name, c.constructorRef, c.nationality
+     r.name as race, r.round, r.year, r.date, c.name, c.constructorRef, c.nationality
     from results res
     join drivers d on d.driverId = res.driverId 
     join races r on r.raceId = res.raceId 
@@ -169,16 +169,31 @@ class Results
     //     return $results;
     // }
 
-    public function getResultsByDriver($ref) {
-        $sql = self::$baseSQL . " WHERE d.driverRef = ?";
+    public function getResultsByDriver($ref)
+    {
+        $sql = self::$baseSQL . " where LOWER(d.forename || '_' || d.surname)=?";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         $results = $statement->fetchAll();
-    
+
         // Debug: Check if any results are fetched
-        if (empty($results)) {
-            echo "No race results found for the driver reference: $ref";
-        }
-    
+        // if (empty($results)) {
+        //     echo "No race results found for the driver reference: $ref";
+        // }
+
+        return $results;
+    }
+
+    public function getResultsByDriverRef($ref)
+    {
+        $sql = self::$baseSQL . " where d.driverRef=?";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        $results = $statement->fetchAll();
+
+        // Debug: Check if any results are fetched
+        // if (empty($results)) {
+        //     echo "No race results found for the driver reference: $ref";
+        // }
+
         return $results;
     }
 
