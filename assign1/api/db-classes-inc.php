@@ -138,7 +138,7 @@ class Results
     private $pdo;
     private static $baseSQL = "SELECT res.number,res.grid, res.position, res.positionText, res.positionOrder, res.points, res.laps, res.time,
     res.milliseconds, res.fastestLap, res.rank, res.fastestLapTime, res.fastestLapSpeed, d.driverRef, d.code, d.forename, d.surname,
-     r.name, r.round, r.year, r.date, c.name, c.constructorRef, c.nationality
+      r.name AS circuitName, r.round, r.year, r.date, c.name, c.constructorRef, c.nationality
     from results res
     join drivers d on d.driverId = res.driverId 
     join races r on r.raceId = res.raceId 
@@ -146,6 +146,12 @@ class Results
     public function __construct($conn)
     {
         $this->pdo = $conn;
+    }
+
+    public function getResultsByConstructor($ref) {
+        $sql = self::$baseSQL . " WHERE LOWER(c.constructorRef) = ? AND r.year = 2022 ORDER BY r.round";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
     }
 
     public function getResultsByRaceID($ref)
