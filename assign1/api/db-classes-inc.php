@@ -72,6 +72,14 @@ class Drivers
         return $statement->fetchAll();
     }
 
+    public function getDriversByName($ref)
+    {
+        $sql = self::$baseSQL . " where LOWER(forename || '_' || surname)=?";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
+
+    }
+
     public function getDriversByRef($ref)
     {
         $sql = self::$baseSQL . " WHERE driverRef=?";
@@ -148,7 +156,8 @@ class Results
         $this->pdo = $conn;
     }
 
-    public function getResultsByConstructor($ref) {
+    public function getResultsByConstructor($ref)
+    {
         $sql = self::$baseSQL . " WHERE LOWER(c.constructorRef) = ? AND r.year = 2022 ORDER BY r.round";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         return $statement->fetchAll();
@@ -175,16 +184,31 @@ class Results
     //     return $results;
     // }
 
-    public function getResultsByDriver($ref) {
-        $sql = self::$baseSQL . " WHERE d.driverRef = ?";
+    public function getResultsByDriver($ref)
+    {
+        $sql = self::$baseSQL . " where LOWER(d.forename || '_' || d.surname)=? AND r.year = 2022";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         $results = $statement->fetchAll();
-    
+
         // Debug: Check if any results are fetched
-        if (empty($results)) {
-            echo "No race results found for the driver reference: $ref";
-        }
-    
+        // if (empty($results)) {
+        //     echo "No race results found for the driver reference: $ref";
+        // }
+
+        return $results;
+    }
+
+    public function getResultsByDriverRef($ref)
+    {
+        $sql = self::$baseSQL . " where d.driverRef=? AND r.year = 2022";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        $results = $statement->fetchAll();
+
+        // Debug: Check if any results are fetched
+        // if (empty($results)) {
+        //     echo "No race results found for the driver reference: $ref";
+        // }
+
         return $results;
     }
 

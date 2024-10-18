@@ -11,8 +11,13 @@ try {
     $resultsGateway = new Results($conn);
     if (isCorrectQuery('resRef')) {
         $results = $resultsGateway->getResultsByRaceID($_GET['resRef']);
-    } else if (isCorrectQuery('driverRes')) {
-        $results = $resultsGateway->getResultsByDriver($_GET['driverRes']);
+    } else if (isCorrectQuery('driverRef')) {
+        $results = $resultsGateway->getResultsByDriver($_GET['driverRef']);
+        if (empty($results)) {
+            $results = $resultsGateway->getResultsByDriverRef($_GET['driverRef']);
+        }
+    } else if (isCorrectQuery('driver')) {
+        $results = $resultsGateway->getResultsByDriver($_GET['driver']);
     }
     echo json_encode($results, JSON_NUMERIC_CHECK, JSON_PRETTY_PRINT);
 } catch (PDOException $e) {
