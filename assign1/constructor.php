@@ -7,6 +7,7 @@ $constructorName = "Not Available";
 $constructorNationality = "Not Available";
 $constructorURL = "#";
 $raceResults = [];
+$driverName = "";
 
 if (isset($_GET['constructorRef'])) {
     try {
@@ -29,6 +30,8 @@ if (isset($_GET['constructorRef'])) {
 } else {
     echo "No constructor reference provided.";
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -79,14 +82,19 @@ if (isset($_GET['constructorRef'])) {
                             <tr>
                                 <td><?php echo $result['round']; ?></td>
                                 <td><?php echo $result['circuitName']; ?></td>
-                                <td><?php echo $result['forename'] . ' ' . $result['surname']; ?></td>
+                                <td>
+                                    <a
+                                        href="driver.php?driver=<?= strtolower($result['forename']) . '_' . strtolower($result['surname']); ?>">
+                                        <?php echo $result['forename'] . ' ' . $result['surname']; ?>
+                                    </a>
+                                </td>
                                 <td><?php echo $result['position']; ?></td>
                                 <td><?php echo $result['points']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5">No race results available for this constructor.</td>
+                            <td colspan=" 5">No race results available for this constructor.</td>
                         </tr>
                     <?php endif;
 

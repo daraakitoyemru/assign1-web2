@@ -14,6 +14,8 @@ try {
         $results = $driversGateway->getDriversByRef($_GET['driverRef']);
     } else if (isCorrectQuery('race')) {
         $results = $driversGateway->getDriversByRace($_GET['race']);
+    } else if (isCorrectQuery(('driver'))) {
+        $results = $driversGateway->getDriversByName($_GET['driver']);
     } else {
         $results = $driversGateway->getAllDrivers();
     }

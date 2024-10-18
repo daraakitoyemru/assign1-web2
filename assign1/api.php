@@ -25,16 +25,16 @@
             <div class="column-1">
                 <h2>URL</h2>
                 <a href="">/api/circuits.php</a>
-                <a href="">/api/circuits.php?ref=</a>
+                <a href="">/api/circuits.php?circuitRef=</a>
                 <a href="">/api/constructors.php</a>
-                <a href="">/api/constructors.php?ref=</a>
+                <a href="">/api/constructors.php?constructorRef=</a>
                 <a href="">/api/drivers.php</a>
-                <a href="">/api/drivers.php?ref=?</a>
+                <a href="">/api/drivers.php?driverRef=?</a>
                 <a href="">/api/drivers.php?race=?</a>
-                <a href="">/api/races.php?ref=?</a>
+                <a href="">/api/races.php?racesRef=?</a>
                 <a href="">/api/races.php</a>
-                <a href="">/api/qualifying.php?ref=?</a>
-                <a href="">/api/results.php?ref=?</a>
+                <a href="">/api/qualifying.php?qualRef=?</a>
+                <a href="">/api/results.php?resRef=?</a>
                 <a href="">/api/results.php?driver=?</a>
             </div>
             <div class="column-2">

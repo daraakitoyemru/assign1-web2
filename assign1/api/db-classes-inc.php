@@ -72,6 +72,14 @@ class Drivers
         return $statement->fetchAll();
     }
 
+    public function getDriversByName($ref)
+    {
+        $sql = self::$baseSQL . " where LOWER(forename || '_' || surname)=?";
+        $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
+        return $statement->fetchAll();
+
+    }
+
     public function getDriversByRef($ref)
     {
         $sql = self::$baseSQL . " WHERE driverRef=?";
@@ -178,7 +186,7 @@ class Results
 
     public function getResultsByDriver($ref)
     {
-        $sql = self::$baseSQL . " where LOWER(d.forename || '_' || d.surname)=?";
+        $sql = self::$baseSQL . " where LOWER(d.forename || '_' || d.surname)=? AND r.year = 2022";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         $results = $statement->fetchAll();
 
@@ -192,7 +200,7 @@ class Results
 
     public function getResultsByDriverRef($ref)
     {
-        $sql = self::$baseSQL . " where d.driverRef=?";
+        $sql = self::$baseSQL . " where d.driverRef=? AND r.year = 2022";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         $results = $statement->fetchAll();
 

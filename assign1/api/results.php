@@ -16,6 +16,8 @@ try {
         if (empty($results)) {
             $results = $resultsGateway->getResultsByDriverRef($_GET['driverRef']);
         }
+    } else if (isCorrectQuery('driver')) {
+        $results = $resultsGateway->getResultsByDriver($_GET['driver']);
     }
     echo json_encode($results, JSON_NUMERIC_CHECK, JSON_PRETTY_PRINT);
 } catch (PDOException $e) {

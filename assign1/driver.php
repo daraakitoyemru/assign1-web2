@@ -6,13 +6,13 @@ ini_set('display_errors', 1);
 include './helpers/helperFunc.inc.php';
 
 
-function outputhtml()
+function outputhtml($driver)
 {
     $s = '';
+    $api_url = 'http://localhost/assign1-web2/assign1/api/drivers.php';
+    if (isCorrectQuery($driver)) {
 
-    if (isCorrectQuery('driverRef')) {
-        $api_url = 'http://localhost/assign1-web2/assign1/api/drivers.php';
-        $content = file_get_contents($api_url . '?driverRef=' . urlencode($_GET['driverRef']));
+        $content = file_get_contents($api_url . '?' . $driver . '=' . urlencode($_GET[$driver]));
         $driver_data = json_decode($content, true);
         foreach ($driver_data as $row) {
             $s .= '<p>Name: ' . $row["forename"] . ' ' . $row["surname"] . '</p>';
@@ -32,14 +32,19 @@ function outPutResultsForDriver($driver)
     $api_url = 'http://localhost/assign1-web2/assign1/api/results.php';
     $s = '';
     if (isCorrectQuery($driver)) {
-        $content = file_get_contents($api_url . '?driverRef=' . urlencode($_GET[$driver]));
+        $content = file_get_contents($api_url . '?' . $driver . '=' . urlencode($_GET[$driver]));
         $driver_data = json_decode($content, true);
 
         foreach ($driver_data as $row) {
             $s .= '<tr>';
             $s .= '<td>' . $row['round'] . '</td>';
-            $s .= '<td>' . $row['race'] . '</td>';
-            $s .= '<td>' . $row['position'] . '</td>';
+            $s .= '<td>' . $row['circuitName'] . '</td>';
+            if (empty($row['position'])) {
+                $s .= '<td>DNF</td>';
+            } else {
+                $s .= '<td>' . $row['position'] . '</td>';
+            }
+            $s .= '<td>' . $row['name'] . '</td>';
             $s .= '<td>' . $row['points'] . '</td>';
             $s .= '</tr>';
         }
@@ -77,8 +82,8 @@ function outPutResultsForDriver($driver)
 
             <h2>Driver Details</h2>
             <?php
-            if (isset($_GET['driverRef'])) {
-                echo outputhtml();
+            if (isset($_GET['driver'])) {
+                echo outputhtml('driver');
             }
             ?>
             <!-- <p>Name:</p>
@@ -96,13 +101,14 @@ function outPutResultsForDriver($driver)
                         <th>Round</th>
                         <th>Circuit</th>
                         <th>Position</th>
+                        <th>Car</th>
                         <th>Points</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Example rows, replace with actual data -->
-                    <?php if (isset($_GET['driverRef'])) {
-                        echo outPutResultsForDriver('driverRef');
+                    <?php if (isset($_GET['driver'])) {
+                        echo outPutResultsForDriver('driver');
                     } ?>
                 </tbody>
             </table>
