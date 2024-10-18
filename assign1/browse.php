@@ -33,9 +33,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COMP3512 Assignment #1</title>
-    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="browse.css">
-
 </head>
 
 <body>
@@ -89,7 +87,7 @@ try {
 
         <section class="main-content">
             <?php if (!empty($qualifyingResults)): ?>
-                <h3>Qualifying Results for Race <?php echo $selectedRaceId; ?></h3>
+                <h3>Qualifying</h3>
                 <table>
                     <thead>
                         <tr>
