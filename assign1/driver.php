@@ -111,7 +111,7 @@ function outPutResultsForDriver($driver)
     </main>
 
     <footer>
-        &copy; 2024 COMP3512 Assignment #1. All Rights Reserved.
+        &copy; 2024 COMP3512 Assignment #1.
     </footer>
 
 </body>
