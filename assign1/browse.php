@@ -11,6 +11,10 @@ $top3Winners = [];
 
 try {
     $conn = DBHelper::createConnection(DBCONNSTRING2);
+    //Note: for this page we would have liked to put the connection string into a separate file
+    //and reference that way, but this was not compatible on both windows and mac despite several
+    //attemps to resolve. 
+
     $racesGateway = new Races($conn);
     $qualifyingGateway = new Qualifying($conn);
     $resultsGateway = new Results($conn);
