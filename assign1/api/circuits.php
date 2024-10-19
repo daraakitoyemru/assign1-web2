@@ -6,7 +6,7 @@ require '../helpers/helperFunc.inc.php';
 
 
 // Tell the browser to expect JSON rather than HTML
-header('Content-type: application/json  charset=utf-8');
+header('Content-type: application/json');
 // indicate whether other domains can use this API
 header("Access-Control-Allow-Origin: *");
 
