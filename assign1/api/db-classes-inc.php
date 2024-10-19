@@ -98,7 +98,7 @@ class Drivers
 class Races
 {
     private $pdo;
-    private static $baseSQL = "select c.name , c.location, c.country, r.date , r.url , r.round, r.year, r.time, r.raceId from races r
+    private static $baseSQL = "select c.name, c.location, c.country, r.name AS raceName, r.date , r.url , r.round, r.year, r.time, r.raceId from races r
     JOIN circuits c on c.circuitId = r.circuitId";
     public function __construct($conn)
     {

@@ -30,6 +30,11 @@ try {
 } catch (PDOException $e) {
     echo "Error fetching race or qualifying data: " . $e->getMessage();
 }
+
+function formatConstructorName($constructorRef)
+{
+    return ucwords(str_replace('_', ' ', $constructorRef));
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +65,7 @@ try {
                 <thead>
                     <tr>
                         <th>Round</th>
-                        <th>Circuit</th>
+                        <th>Race Name</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -69,7 +74,7 @@ try {
                         <?php foreach ($raceResults as $race): ?>
                             <tr>
                                 <td><?php echo $race['round']; ?></td>
-                                <td><?php echo $race['name']; ?></td>
+                                <td><?php echo $race['raceName']; ?></td>
                                 <td>
                                     <form method="post" action="browse.php">
                                         <input type="hidden" name="raceId" value="<?php echo $race['raceId']; ?>">
@@ -103,8 +108,16 @@ try {
                         <?php foreach ($top3Winners as $index => $winner): ?>
                             <tr>
                                 <td>#<?php echo $index + 1; ?></td>
-                                <td><?php echo $winner['forename'] . ' ' . $winner['surname']; ?></td>
-                                <td><?php echo $winner['constructorRef']; ?></td>
+                                <td>
+                                    <a href="racers.php?driverRef=<?php echo $winner['driverRef']; ?>">
+                                        <?php echo $winner['forename'] . ' ' . $winner['surname']; ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="constructor.php?constructorRef=<?php echo $winner['constructorRef']; ?>">
+                                        <?php echo formatConstructorName($winner['constructorRef']); ?>
+                                    </a>
+                                </td>
                                 <td><?php echo $winner['points']; ?> pts</td>
                             </tr>
                         <?php endforeach; ?>
@@ -131,8 +144,16 @@ try {
                         <?php foreach ($qualifyingResults as $result): ?>
                             <tr>
                                 <td><?php echo $result['position']; ?></td>
-                                <td><?php echo $result['forename'] . ' ' . $result['surname']; ?></td>
-                                <td><?php echo $result['constructorRef']; ?></td>
+                                <td>
+                                    <a href="racers.php?driverRef=<?php echo $result['driverRef']; ?>">
+                                        <?php echo $result['forename'] . ' ' . $result['surname']; ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="constructor.php?constructorRef=<?php echo $result['constructorRef']; ?>">
+                                        <?php echo formatConstructorName($result['constructorRef']); ?>
+                                    </a>
+                                </td>
                                 <td><?php echo $result['q1']; ?></td>
                                 <td><?php echo $result['q2']; ?></td>
                                 <td><?php echo $result['q3']; ?></td>
@@ -160,8 +181,16 @@ try {
                         <?php foreach ($allRaceResults as $result): ?>
                             <tr>
                                 <td><?php echo $result['position']; ?></td>
-                                <td><?php echo $result['forename'] . ' ' . $result['surname']; ?></td>
-                                <td><?php echo $result['constructorRef']; ?></td>
+                                <td>
+                                    <a href="racers.php?driverRef=<?php echo $result['driverRef']; ?>">
+                                        <?php echo $result['forename'] . ' ' . $result['surname']; ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="constructor.php?constructorRef=<?php echo $result['constructorRef']; ?>">
+                                        <?php echo formatConstructorName($result['constructorRef']); ?>
+                                    </a>
+                                </td>
                                 <td><?php echo $result['laps']; ?></td>
                                 <td><?php echo $result['points']; ?> pts</td>
                             </tr>
