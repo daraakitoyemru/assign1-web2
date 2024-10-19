@@ -142,10 +142,11 @@ table tbody tr:nth-of-type(even) {
 
 table a {
   text-decoration: none;
-  color: inherit;
+  color: #bb2828;
+  font-weight: 600;
 }
 
 table a:hover {
   text-decoration: underline;
-  color: #bb2828;
+  color: #761616;
 }

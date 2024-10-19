@@ -59,6 +59,16 @@ aside h2 {
   color: #bb2828;
 }
 
+aside h2 {
+  color: #bb2828;
+}
+
+aside a {
+  text-decoration: none;
+  color: #bb2828;
+  font-weight: 600;
+}
+
 section.main-content {
   width: 70%;
   background-color: #fff;
@@ -119,6 +129,13 @@ table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-table tbody tr:last-of-type {
-  border-bottom: 2px solid #009879;
+table a {
+  text-decoration: none;
+  color: #bb2828;
+  font-weight: 600;
+}
+
+table a:hover {
+  text-decoration: underline;
+  color: #761616;
 }

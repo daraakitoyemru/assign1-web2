@@ -83,8 +83,7 @@ if (isset($_GET['constructorRef'])) {
                                 <td><?php echo $result['round']; ?></td>
                                 <td><?php echo $result['circuitName']; ?></td>
                                 <td>
-                                    <a
-                                        href="driver.php?driver=<?= strtolower($result['forename']) . '_' . strtolower($result['surname']); ?>">
+                                    <a href="driver.php?driverRef=<?php echo $result['driverRef']; ?>">
                                         <?php echo $result['forename'] . ' ' . $result['surname']; ?>
                                     </a>
                                 </td>

@@ -109,7 +109,7 @@ function formatConstructorName($constructorRef)
                             <tr>
                                 <td>#<?php echo $index + 1; ?></td>
                                 <td>
-                                    <a href="racers.php?driverRef=<?php echo $winner['driverRef']; ?>">
+                                    <a href="driver.php?driverRef=<?php echo $winner['driverRef']; ?>">
                                         <?php echo $winner['forename'] . ' ' . $winner['surname']; ?>
                                     </a>
                                 </td>
@@ -145,7 +145,7 @@ function formatConstructorName($constructorRef)
                             <tr>
                                 <td><?php echo $result['position']; ?></td>
                                 <td>
-                                    <a href="racers.php?driverRef=<?php echo $result['driverRef']; ?>">
+                                    <a href="driver.php?driverRef=<?php echo $result['driverRef']; ?>">
                                         <?php echo $result['forename'] . ' ' . $result['surname']; ?>
                                     </a>
                                 </td>
