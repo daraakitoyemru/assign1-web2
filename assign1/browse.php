@@ -92,6 +92,20 @@ function formatConstructorName($constructorRef)
             </table>
         </aside>
 
+        <?php if (!empty($raceDetails)): ?>
+            <section class="race-information">
+                <h2>Race Information</h2>
+                <p><strong>Race Name:</strong> <?php echo $raceDetails[0]['name']; ?></p>
+                <p><strong>Round:</strong> <?php echo $raceDetails[0]['round']; ?></p>
+                <p><strong>Circuit Name:</strong> <?php echo $raceDetails[0]['circuitName']; ?></p>
+                <p><strong>Location:</strong> <?php echo $raceDetails[0]['location']; ?></p>
+                <p><strong>Country:</strong> <?php echo $raceDetails[0]['country']; ?></p>
+                <p><strong>Date:</strong> <?php echo $raceDetails[0]['date']; ?></p>
+                <p><strong>Race URL:</strong> <a href="<?php echo $raceDetails[0]['url']; ?>" target="_blank">More Info</a>
+                </p>
+            </section>
+        <?php endif; ?>
+
         <section class="podium">
             <?php if (!empty($top3Winners)): ?>
                 <h3>Top 3 Winners for Race <?php echo $selectedRaceId; ?></h3>
