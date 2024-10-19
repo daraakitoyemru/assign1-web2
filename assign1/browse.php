@@ -21,12 +21,11 @@ try {
         $qualifyingResults = $qualifyingGateway->getQualifyingByRaceID($selectedRaceId);
         $allRaceResults = $resultsGateway->getResultsByRaceID($selectedRaceId);
 
-        // Sort results by laps first, then points in descending order
         usort($allRaceResults, function ($a, $b) {
             return [$b['laps'], $b['points']] <=> [$a['laps'], $a['points']];
         });
 
-        $top3Winners = array_slice($allRaceResults, 0, 3); // Get top 3 winners
+        $top3Winners = array_slice($allRaceResults, 0, 3);
     }
 } catch (PDOException $e) {
     echo "Error fetching race or qualifying data: " . $e->getMessage();
@@ -88,7 +87,6 @@ try {
             </table>
         </aside>
 
-        <!-- Section for Top 3 Winners -->
         <section class="podium">
             <?php if (!empty($top3Winners)): ?>
                 <h3>Top 3 Winners for Race <?php echo $selectedRaceId; ?></h3>
@@ -115,8 +113,7 @@ try {
             <?php endif; ?>
         </section>
 
-        <!-- Qualifying Results Table -->
-        <section class="main-content">
+        <section class="qualifying-content">
             <?php if (!empty($qualifyingResults)): ?>
                 <h3>Qualifying Results</h3>
                 <table>
@@ -131,10 +128,7 @@ try {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($qualifyingResults as $result):
-                            echo $result['raceId'];
-                            ?>
-
+                        <?php foreach ($qualifyingResults as $result): ?>
                             <tr>
                                 <td><?php echo $result['position']; ?></td>
                                 <td><?php echo $result['forename'] . ' ' . $result['surname']; ?></td>
@@ -149,8 +143,7 @@ try {
             <?php endif; ?>
         </section>
 
-        <!-- Race Results Table -->
-        <section class="main-content">
+        <section class="results-content">
             <?php if (!empty($allRaceResults)): ?>
                 <h3>Race Results</h3>
                 <table>
