@@ -8,8 +8,9 @@ $qualifyingResults = [];
 $selectedRaceId = null;
 $top3Winners = [];
 
+
 try {
-    $conn = DBHelper::createConnection(DBCONNSTRING);
+    $conn = DBHelper::createConnection('sqlite:./data/f1.db');
     $racesGateway = new Races($conn);
     $qualifyingGateway = new Qualifying($conn);
     $resultsGateway = new Results($conn);
@@ -191,7 +192,7 @@ function formatConstructorName($constructorRef)
                             <tr>
                                 <td><?php echo $result['position']; ?></td>
                                 <td>
-                                    <a href="racers.php?driverRef=<?php echo $result['driverRef']; ?>">
+                                    <a href="driver.php?driverRef=<?php echo $result['driverRef']; ?>">
                                         <?php echo $result['forename'] . ' ' . $result['surname']; ?>
                                     </a>
                                 </td>
