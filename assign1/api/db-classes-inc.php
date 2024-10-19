@@ -107,7 +107,7 @@ class Races
 
     public function getRacesbyRef($ref)
     {
-        $sql = self::$baseSQL . " where c.circuitId =?";
+        $sql = self::$baseSQL . " where r.raceId =?";
 
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         return $statement->fetchAll();
