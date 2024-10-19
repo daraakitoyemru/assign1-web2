@@ -82,8 +82,8 @@ function outPutResultsForDriver($driver)
 
             <h2>Driver Details</h2>
             <?php
-            if (isset($_GET['driver'])) {
-                echo outputhtml('driver');
+            if (isset($_GET['driverRef'])) {
+                echo outputhtml('driverRef');
             }
             ?>
             <!-- <p>Name:</p>
@@ -107,8 +107,8 @@ function outPutResultsForDriver($driver)
                 </thead>
                 <tbody>
                     <!-- Example rows, replace with actual data -->
-                    <?php if (isset($_GET['driver'])) {
-                        echo outPutResultsForDriver('driver');
+                    <?php if (isset($_GET['driverRef'])) {
+                        echo outPutResultsForDriver('driverRef');
                     } ?>
                 </tbody>
             </table>

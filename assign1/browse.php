@@ -87,6 +87,15 @@ try {
         <section class="podium">
             <?php if (!empty($top3Winners)): ?>
                 <h3>Top 3 Winners for Race <?php echo $selectedRaceId; ?></h3>
+                <?php
+                // Sort the winners by points in descending order
+                usort($top3Winners, function ($a, $b) {
+                    return $b['points'] <=> $a['points'];
+                });
+
+                // Limit the results to the top 3 by points
+                $top3Winners = array_slice($top3Winners, 0, 3);
+                ?>
                 <table>
                     <thead>
                         <tr>
@@ -97,16 +106,16 @@ try {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($top3Winners as $winner): ?>
+                        <?php foreach ($top3Winners as $index => $winner): ?>
                             <tr>
-                                <td><?php echo $winner['position']; ?></td>
+                                <td>#<?php echo $index + 1; ?></td>
                                 <td><?php echo $winner['forename'] . ' ' . $winner['surname']; ?></td>
                                 <td>
                                     <a href="constructor.php?constructorRef=<?php echo $winner['constructorRef']; ?>">
                                         <?php echo $winner['constructorRef']; ?>
                                     </a>
                                 </td>
-                                <td><?php echo $winner['points']; ?></td>
+                                <td><?php echo $winner['points']; ?> pts</td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -120,8 +129,7 @@ try {
                 <table>
                     <thead>
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Driver</th>
                             <th>Constructor</th>
                             <th>Q1</th>
                             <th>Q2</th>
@@ -131,8 +139,11 @@ try {
                     <tbody>
                         <?php foreach ($qualifyingResults as $result): ?>
                             <tr>
-                                <td><?php echo $result['forename']; ?></td>
-                                <td><?php echo $result['surname']; ?></td>
+                                <td>
+                                    <a href="driver.php?driverRef=<?php echo $result['driverRef']; ?>">
+                                        <?php echo $result['forename'] . ' ' . $result['surname']; ?>
+                                    </a>
+                                </td>
                                 <td>
                                     <a href="constructor.php?constructorRef=<?php echo $result['constructorRef']; ?>">
                                         <?php echo $result['constructorRef']; ?>

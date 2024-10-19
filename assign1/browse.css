@@ -47,8 +47,9 @@ nav a:hover {
 main {
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 20% 80%;
   margin: 20px;
+  grid-gap: 10px;
 }
 
 aside {
@@ -56,6 +57,7 @@ aside {
   padding: 20px;
   border-radius: 10px;
   margin-right: 20px;
+  grid-row: 1/3;
 }
 
 aside h2 {
@@ -96,6 +98,7 @@ footer {
   margin: 0;
   grid-column: 2;
   grid-row: 1;
+  padding-bottom: 50px;
 }
 
 table {
@@ -105,6 +108,7 @@ table {
   font-size: 1em;
   font-family: Arial, sans-serif;
   text-align: left;
+  padding-bottom: 30px;
 }
 
 table thead tr {

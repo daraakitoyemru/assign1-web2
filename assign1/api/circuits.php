@@ -1,9 +1,9 @@
 <?php
-
-require_once 'db-classes-inc.php';
-require '../helpers/helperFunc.inc.php';
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+require_once 'db-classes-inc.php';
+require '../helpers/helperFunc.inc.php';
+
 
 // Tell the browser to expect JSON rather than HTML
 header('Content-type: application/json');

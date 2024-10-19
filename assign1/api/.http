@@ -1,2 +1,2 @@
 
-GET http://localhost/dakit711/assign1-web2/assign1/api/test.php? HTTP/1.1
+GET http://localhost/assign1-web2/assign1/api/circuits.php HTTP/1.1
