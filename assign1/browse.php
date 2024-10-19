@@ -10,6 +10,9 @@ $top3Winners = [];
 
 
 try {
+    //Note: for this page we would have liked to put the connection string into a separate file
+    //and reference that way, but this was not compatible on both windows and mac despite several
+    //attemps to resolve. 
     $conn = DBHelper::createConnection('sqlite:./data/f1.db');
     $racesGateway = new Races($conn);
     $qualifyingGateway = new Qualifying($conn);
