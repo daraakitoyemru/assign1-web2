@@ -121,8 +121,9 @@ table tbody tr {
 }
 
 table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  background-color: #f3ebe7;
 }
+
 table a {
   text-decoration: none;
   color: #bb2828;

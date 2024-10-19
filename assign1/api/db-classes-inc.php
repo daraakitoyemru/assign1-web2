@@ -98,7 +98,7 @@ class Drivers
 class Races
 {
     private $pdo;
-    private static $baseSQL = "select c.name, c.location, c.country, r.name AS raceName, r.date , r.url , r.round, r.year, r.time, r.raceId from races r
+    private static $baseSQL = "select c.name as circuitName, c.location, c.country, r.name AS raceName, r.date , r.url , r.round, r.year, r.time, r.raceId from races r
     JOIN circuits c on c.circuitId = r.circuitId";
     public function __construct($conn)
     {
@@ -124,8 +124,8 @@ class Races
 class Qualifying
 {
     private $pdo;
-    private static $baseSQL = "select q.position, q.q1, q.q2, q.q3, q.number, d.driverRef, d.code, d.forename, d.surname, r.name, r.round, r.year,
-    r.date, c.name, c.constructorRef, c.nationality, q.raceId from qualifying q 
+    private static $baseSQL = "select q.position, q.q1, q.q2, q.q3, q.number, d.driverRef, d.code, d.forename, d.surname, r.name AS raceName, r.round, r.year,
+    r.date, c.name AS circuitName, c.constructorRef, c.nationality, q.raceId from qualifying q 
     join drivers d on q.driverId = d.driverId 
     join races r on r.raceId = q.raceId 
     join constructors c on c.constructorId = q.constructorId";
@@ -146,7 +146,7 @@ class Results
     private $pdo;
     private static $baseSQL = "SELECT res.number,res.grid, res.position, res.positionText, res.positionOrder, res.points, res.laps, res.time,
     res.milliseconds, res.fastestLap, res.rank, res.fastestLapTime, res.fastestLapSpeed, d.driverRef, d.code, d.forename, d.surname,
-      r.name AS circuitName, r.round, r.year, r.date, c.name, c.constructorRef, c.nationality
+      r.name AS raceName, r.round, r.year, r.date, c.name AS circuitName, c.constructorRef, c.nationality
     from results res
     join drivers d on d.driverId = res.driverId 
     join races r on r.raceId = res.raceId 

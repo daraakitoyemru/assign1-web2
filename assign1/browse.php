@@ -26,6 +26,8 @@ try {
         });
 
         $top3Winners = array_slice($allRaceResults, 0, 3);
+        $raceDetails = $racesGateway->getRacesbyRef($selectedRaceId);
+
     }
 } catch (PDOException $e) {
     echo "Error fetching race or qualifying data: " . $e->getMessage();
@@ -95,7 +97,7 @@ function formatConstructorName($constructorRef)
         <?php if (!empty($raceDetails)): ?>
             <section class="race-information">
                 <h2>Race Information</h2>
-                <p><strong>Race Name:</strong> <?php echo $raceDetails[0]['name']; ?></p>
+                <p><strong>Race Name:</strong> <?php echo $raceDetails[0]['raceName']; ?></p>
                 <p><strong>Round:</strong> <?php echo $raceDetails[0]['round']; ?></p>
                 <p><strong>Circuit Name:</strong> <?php echo $raceDetails[0]['circuitName']; ?></p>
                 <p><strong>Location:</strong> <?php echo $raceDetails[0]['location']; ?></p>

@@ -47,7 +47,7 @@ nav a:hover {
 main {
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-template-rows: 12% 42% 42%;
+  grid-template-rows: auto auto auto auto;
   margin: 20px;
   grid-gap: 10px;
 }
@@ -56,8 +56,7 @@ aside {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  margin-right: 20px;
-  grid-row: 1/4;
+  grid-row: 1/5;
 }
 
 aside h2 {
@@ -82,21 +81,49 @@ footer {
   margin-top: 5px;
 }
 
+.race-information {
+  background-color: #fff;
+  padding: 20px;
+  padding-left: 30px;
+  border-radius: 10px;
+  margin: 0;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.race-information h2 {
+  color: #bb2828;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.race-information a {
+  text-decoration: none;
+  color: #bb2828;
+  font-weight: 600;
+}
+
+.race-information a:hover {
+  text-decoration: underline;
+  color: #761616;
+}
+
 .qualifying-content {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   margin: 0;
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 3;
 }
+
 .results-content {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   margin: 0;
   grid-column: 2;
-  /* grid-row: 3; */
+  grid-row: 4;
 }
 
 .podium {
@@ -105,8 +132,7 @@ footer {
   border-radius: 10px;
   margin: 0;
   grid-column: 2;
-  grid-row: 1;
-  padding-bottom: 50px;
+  grid-row: 2;
 }
 
 table {
@@ -137,7 +163,7 @@ table tbody tr {
 }
 
 table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  background-color: #f3ebe7;
 }
 
 table a {
@@ -149,4 +175,19 @@ table a {
 table a:hover {
   text-decoration: underline;
   color: #761616;
+}
+
+button {
+  color: #bb2828;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  white-space: nowrap;
+}
+
+button:hover {
+  text-decoration: underline;
 }

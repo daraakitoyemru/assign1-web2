@@ -82,7 +82,6 @@ if (isset($_GET['driverRef'])) {
                         <th>Round</th>
                         <th>Circuit</th>
                         <th>Position</th>
-                        <th>Car</th>
                         <th>Points</th>
                     </tr>
                 </thead>
@@ -93,7 +92,6 @@ if (isset($_GET['driverRef'])) {
                                 <td><?php echo $result['round']; ?></td>
                                 <td><?php echo $result['circuitName']; ?></td>
                                 <td><?php echo $result['position'] ?: 'DNF'; // Did not finish ?></td>
-                                <td><?php echo $result['name']; ?></td>
                                 <td><?php echo $result['points']; ?></td>
                             </tr>
                         <?php endforeach; ?>
