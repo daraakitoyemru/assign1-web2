@@ -22,8 +22,8 @@
     <main>
         <aside>
             <p>This website was created for Assignment 1 of COMP3512 at Mount Royal University.
-                The focus of the project is to explore web development technologies such as HTML, CSS, and PHP
-                we can add more description stuff later</p>
+                The focus of the project is to explore web development technologies such as HTML, CSS, PHP, and SQLite.
+                This site was built using real data from Formula 1 Racing. </p>
             <p class="group-members">Group Members: Dara, Viktoriya</p>
             <a href="https://github.com/daraakitoyemru/assign1-web2" target="_blank" class="github-link"><strong>GitHub
                     Repository</strong></a> <br />
