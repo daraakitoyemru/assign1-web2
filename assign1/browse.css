@@ -128,8 +128,8 @@ footer {
 
 .podium {
   background-color: #fff;
-  padding: 20px;
   border-radius: 10px;
+  padding: 5px;
   margin: 0;
   grid-column: 2;
   grid-row: 2;
@@ -190,4 +190,57 @@ button {
 
 button:hover {
   text-decoration: underline;
+}
+
+.podium-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-top: 10px;
+  gap: 5px;
+}
+
+.podium-item {
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  width: 250px;
+  position: relative;
+  margin: 0;
+}
+
+.podium-item.first {
+  background-color: #ffd700;
+  color: #9d3c08;
+  height: 200px;
+}
+
+.podium-item.second {
+  background-color: #c0c0c0;
+  color: #363333;
+  height: 140px;
+}
+
+.podium-item.third {
+  background-color: #cd7f32;
+  color: #442506;
+  height: 100px;
+}
+
+.podium-item .position {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.podium-item .driver {
+  display: block;
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.podium-item .points {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.9rem;
 }

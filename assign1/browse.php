@@ -108,39 +108,32 @@ function formatConstructorName($constructorRef)
             </section>
         <?php endif; ?>
 
-        <section class="podium">
-            <?php if (!empty($top3Winners)): ?>
-                <h3>Top 3 Winners for Race <?php echo $selectedRaceId; ?></h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Position</th>
-                            <th>Driver</th>
-                            <th>Constructor</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($top3Winners as $index => $winner): ?>
-                            <tr>
-                                <td>#<?php echo $index + 1; ?></td>
-                                <td>
-                                    <a href="driver.php?driverRef=<?php echo $winner['driverRef']; ?>">
-                                        <?php echo $winner['forename'] . ' ' . $winner['surname']; ?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="constructor.php?constructorRef=<?php echo $winner['constructorRef']; ?>">
-                                        <?php echo formatConstructorName($winner['constructorRef']); ?>
-                                    </a>
-                                </td>
-                                <td><?php echo $winner['points']; ?> pts</td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-        </section>
+        <?php if (!empty($top3Winners)): ?>
+            <section class="podium">
+                <div class="podium-container">
+                    <div class="podium-item second">
+                        <span class="position">2</span>
+                        <span
+                            class="driver"><?php echo $top3Winners[1]['forename'] . ' ' . $top3Winners[1]['surname']; ?></span>
+                        <span class="points"><?php echo $top3Winners[1]['points']; ?> pts</span>
+                    </div>
+
+                    <div class="podium-item first">
+                        <span class="position">1</span>
+                        <span
+                            class="driver"><?php echo $top3Winners[0]['forename'] . ' ' . $top3Winners[0]['surname']; ?></span>
+                        <span class="points"><?php echo $top3Winners[0]['points']; ?> pts</span>
+                    </div>
+
+                    <div class="podium-item third">
+                        <span class="position">3</span>
+                        <span
+                            class="driver"><?php echo $top3Winners[2]['forename'] . ' ' . $top3Winners[2]['surname']; ?></span>
+                        <span class="points"><?php echo $top3Winners[2]['points']; ?> pts</span>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
 
         <section class="qualifying-content">
             <?php if (!empty($qualifyingResults)): ?>
