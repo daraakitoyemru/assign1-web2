@@ -1,7 +1,7 @@
 <?php
 require_once 'api/db-classes-inc.php';
 require_once 'api/db-helper.inc.php';
-require_once 'api/config.inc.php';
+require_once 'api/config2.inc.php';
 
 $constructorName = "Not Available";
 $constructorNationality = "Not Available";
@@ -11,7 +11,7 @@ $driverName = "";
 
 if (isset($_GET['constructorRef'])) {
     try {
-        $conn = DBHelper::createConnection(DBCONNSTRING);
+        $conn = DBHelper::createConnection(DBCONNSTRING2);
         $constructorGateway = new Constructor($conn);
         $resultsGateway = new Results($conn);
         $constructorDetails = $constructorGateway->getConstructorByRef($_GET['constructorRef']);
