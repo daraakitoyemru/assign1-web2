@@ -8,7 +8,6 @@ $qualifyingResults = [];
 $selectedRaceId = null;
 $top3Winners = [];
 
-
 try {
     $conn = DBHelper::createConnection(DBCONNSTRING);
     $racesGateway = new Races($conn);
@@ -21,9 +20,14 @@ try {
         $selectedRaceId = $_POST['raceId'];
         $qualifyingResults = $qualifyingGateway->getQualifyingByRaceID($selectedRaceId);
         $allRaceResults = $resultsGateway->getResultsByRaceID($selectedRaceId);
-        $top3Winners = array_slice($allRaceResults, 0, 3);
-    }
 
+        // Sort results by laps first, then points in descending order
+        usort($allRaceResults, function ($a, $b) {
+            return [$b['laps'], $b['points']] <=> [$a['laps'], $a['points']];
+        });
+
+        $top3Winners = array_slice($allRaceResults, 0, 3); // Get top 3 winners
+    }
 } catch (PDOException $e) {
     echo "Error fetching race or qualifying data: " . $e->getMessage();
 }
@@ -69,7 +73,7 @@ try {
                                 <td><?php echo $race['name']; ?></td>
                                 <td>
                                     <form method="post" action="browse.php">
-                                        <input type="hidden" name="raceId" value="<?php echo $race['round']; ?>">
+                                        <input type="hidden" name="raceId" value="<?php echo $race['raceId']; ?>">
                                         <button type="submit">View Race</button>
                                     </form>
                                 </td>
@@ -84,18 +88,10 @@ try {
             </table>
         </aside>
 
+        <!-- Section for Top 3 Winners -->
         <section class="podium">
             <?php if (!empty($top3Winners)): ?>
                 <h3>Top 3 Winners for Race <?php echo $selectedRaceId; ?></h3>
-                <?php
-                // Sort the winners by points in descending order
-                usort($top3Winners, function ($a, $b) {
-                    return $b['points'] <=> $a['points'];
-                });
-
-                // Limit the results to the top 3 by points
-                $top3Winners = array_slice($top3Winners, 0, 3);
-                ?>
                 <table>
                     <thead>
                         <tr>
@@ -110,11 +106,7 @@ try {
                             <tr>
                                 <td>#<?php echo $index + 1; ?></td>
                                 <td><?php echo $winner['forename'] . ' ' . $winner['surname']; ?></td>
-                                <td>
-                                    <a href="constructor.php?constructorRef=<?php echo $winner['constructorRef']; ?>">
-                                        <?php echo $winner['constructorRef']; ?>
-                                    </a>
-                                </td>
+                                <td><?php echo $winner['constructorRef']; ?></td>
                                 <td><?php echo $winner['points']; ?> pts</td>
                             </tr>
                         <?php endforeach; ?>
@@ -123,12 +115,14 @@ try {
             <?php endif; ?>
         </section>
 
+        <!-- Qualifying Results Table -->
         <section class="main-content">
             <?php if (!empty($qualifyingResults)): ?>
-                <h3>Qualifying</h3>
+                <h3>Qualifying Results</h3>
                 <table>
                     <thead>
                         <tr>
+                            <th>Position</th>
                             <th>Driver</th>
                             <th>Constructor</th>
                             <th>Q1</th>
@@ -137,18 +131,14 @@ try {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($qualifyingResults as $result): ?>
+                        <?php foreach ($qualifyingResults as $result):
+                            echo $result['raceId'];
+                            ?>
+
                             <tr>
-                                <td>
-                                    <a href="driver.php?driverRef=<?php echo $result['driverRef']; ?>">
-                                        <?php echo $result['forename'] . ' ' . $result['surname']; ?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="constructor.php?constructorRef=<?php echo $result['constructorRef']; ?>">
-                                        <?php echo $result['constructorRef']; ?>
-                                    </a>
-                                </td>
+                                <td><?php echo $result['position']; ?></td>
+                                <td><?php echo $result['forename'] . ' ' . $result['surname']; ?></td>
+                                <td><?php echo $result['constructorRef']; ?></td>
                                 <td><?php echo $result['q1']; ?></td>
                                 <td><?php echo $result['q2']; ?></td>
                                 <td><?php echo $result['q3']; ?></td>
@@ -158,6 +148,36 @@ try {
                 </table>
             <?php endif; ?>
         </section>
+
+        <!-- Race Results Table -->
+        <section class="main-content">
+            <?php if (!empty($allRaceResults)): ?>
+                <h3>Race Results</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Driver</th>
+                            <th>Constructor</th>
+                            <th>Laps</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($allRaceResults as $result): ?>
+                            <tr>
+                                <td><?php echo $result['position']; ?></td>
+                                <td><?php echo $result['forename'] . ' ' . $result['surname']; ?></td>
+                                <td><?php echo $result['constructorRef']; ?></td>
+                                <td><?php echo $result['laps']; ?></td>
+                                <td><?php echo $result['points']; ?> pts</td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </section>
+
     </main>
 
     <footer>

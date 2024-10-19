@@ -1,59 +1,46 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-//require_once './helpers/helperFunc.inc.php';
+require_once 'api/db-classes-inc.php';
+require_once 'api/db-helper.inc.php';
+require_once 'api/config.inc.php';
 
-include './helpers/helperFunc.inc.php';
+$driverName = "Not Available";
+$driverDOB = "Not Available";
+$driverAge = "Not Available";
+$driverNationality = "Not Available";
+$driverURL = "#";
+$raceResults = [];
 
+if (isset($_GET['driverRef'])) {
+    try {
+        $conn = DBHelper::createConnection(DBCONNSTRING);
+        $driversGateway = new Drivers($conn);
+        $resultsGateway = new Results($conn);
+        $driverDetails = $driversGateway->getDriversByRef($_GET['driverRef']);
 
-function outputhtml($driver)
-{
-    $s = '';
-    $api_url = 'http://localhost/assign1-web2/assign1/api/drivers.php';
-    if (isCorrectQuery($driver)) {
+        if (!empty($driverDetails)) {
+            $driver = $driverDetails[0];
+            $driverName = $driver['forename'] . ' ' . $driver['surname'];
+            $driverDOB = $driver['dob'];
 
-        $content = file_get_contents($api_url . '?' . $driver . '=' . urlencode($_GET[$driver]));
-        $driver_data = json_decode($content, true);
-        foreach ($driver_data as $row) {
-            $s .= '<p>Name: ' . $row["forename"] . ' ' . $row["surname"] . '</p>';
-            $s .= '<p>DOB: ' . $row["dob"] . '</p>';
-            $s .= '<p>Nationality: ' . $row["nationality"] . '</p>';
-            $s .= '<p>URL: ' . $row["url"] . '</p>';
-        }
-    } else {
-        echo "error, soemthing went wrong";
+            // Calculate age
+            $birthdate = new DateTime($driverDOB);
+            $today = new DateTime('today');
+            $driverAge = $today->diff($birthdate)->y . ' years old';
 
-    }
-    return $s;
-}
+            $driverNationality = $driver['nationality'];
+            $driverURL = $driver['url'];
 
-function outPutResultsForDriver($driver)
-{
-    $api_url = 'http://localhost/assign1-web2/assign1/api/results.php';
-    $s = '';
-    if (isCorrectQuery($driver)) {
-        $content = file_get_contents($api_url . '?' . $driver . '=' . urlencode($_GET[$driver]));
-        $driver_data = json_decode($content, true);
-
-        foreach ($driver_data as $row) {
-            $s .= '<tr>';
-            $s .= '<td>' . $row['round'] . '</td>';
-            $s .= '<td>' . $row['circuitName'] . '</td>';
-            if (empty($row['position'])) {
-                $s .= '<td>DNF</td>';
-            } else {
-                $s .= '<td>' . $row['position'] . '</td>';
-            }
-            $s .= '<td>' . $row['name'] . '</td>';
-            $s .= '<td>' . $row['points'] . '</td>';
-            $s .= '</tr>';
+            // Get race results for the driver
+            $raceResults = $resultsGateway->getResultsByDriver(strtolower($driver['forename']) . '_' . strtolower($driver['surname']));
         }
 
-
+    } catch (PDOException $e) {
+        echo "Error fetching driver details: " . $e->getMessage();
     }
-
-    return $s;
+} else {
+    echo "No driver reference provided.";
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,23 +66,17 @@ function outPutResultsForDriver($driver)
 
     <main>
         <aside>
-
             <h2>Driver Details</h2>
-            <?php
-            if (isset($_GET['driverRef'])) {
-                echo outputhtml('driverRef');
-            }
-            ?>
-            <!-- <p>Name:</p>
-            <p>DoB:</p>
-            <p>Age:</p>
-            <p>Nationality:</p>
-            <p>URL:</p> -->
+            <p><strong>Name:</strong> <?php echo $driverName; ?></p>
+            <p><strong>Date of Birth:</strong> <?php echo $driverDOB; ?></p>
+            <p><strong>Age:</strong> <?php echo $driverAge; ?></p>
+            <p><strong>Nationality:</strong> <?php echo $driverNationality; ?></p>
+            <p><strong>URL:</strong> <a href="<?php echo $driverURL; ?>" target="_blank">More Info</a></p>
         </aside>
 
         <section class="main-content">
             <h2>Race Details</h2>
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Round</th>
@@ -106,13 +87,23 @@ function outPutResultsForDriver($driver)
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Example rows, replace with actual data -->
-                    <?php if (isset($_GET['driverRef'])) {
-                        echo outPutResultsForDriver('driverRef');
-                    } ?>
+                    <?php if (!empty($raceResults)): ?>
+                        <?php foreach ($raceResults as $result): ?>
+                            <tr>
+                                <td><?php echo $result['round']; ?></td>
+                                <td><?php echo $result['circuitName']; ?></td>
+                                <td><?php echo $result['position'] ?: 'DNF'; // Did not finish ?></td>
+                                <td><?php echo $result['name']; ?></td>
+                                <td><?php echo $result['points']; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5">No race results available for this driver.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
-
         </section>
     </main>
 

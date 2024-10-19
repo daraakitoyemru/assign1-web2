@@ -98,7 +98,7 @@ class Drivers
 class Races
 {
     private $pdo;
-    private static $baseSQL = "select c.name , c.location, c.country, r.date , r.url , r.round, r.year, r.time from races r
+    private static $baseSQL = "select c.name , c.location, c.country, r.date , r.url , r.round, r.year, r.time, r.raceId from races r
     JOIN circuits c on c.circuitId = r.circuitId";
     public function __construct($conn)
     {
@@ -125,7 +125,7 @@ class Qualifying
 {
     private $pdo;
     private static $baseSQL = "select q.position, q.q1, q.q2, q.q3, q.number, d.driverRef, d.code, d.forename, d.surname, r.name, r.round, r.year,
-    r.date, c.name, c.constructorRef, c.nationality from qualifying q 
+    r.date, c.name, c.constructorRef, c.nationality, q.raceId from qualifying q 
     join drivers d on q.driverId = d.driverId 
     join races r on r.raceId = q.raceId 
     join constructors c on c.constructorId = q.constructorId";
@@ -135,7 +135,7 @@ class Qualifying
     }
     public function getQualifyingByRaceID($ref)
     {
-        $sql = self::$baseSQL . " where r.raceId =? order by q.position ASC";
+        $sql = self::$baseSQL . " where q.raceId =? order by q.position ASC";
         $statement = DBHelper::runQuery($this->pdo, $sql, $ref);
         return $statement->fetchAll();
     }
