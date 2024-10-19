@@ -1,7 +1,7 @@
 <?php
 require_once 'api/db-classes-inc.php';
 require_once 'api/db-helper.inc.php';
-require_once 'api/config.inc.php';
+require_once 'api/config2.inc.php';
 
 $driverName = "Not Available";
 $driverDOB = "Not Available";
@@ -12,7 +12,7 @@ $raceResults = [];
 
 if (isset($_GET['driverRef'])) {
     try {
-        $conn = DBHelper::createConnection(DBCONNSTRING);
+        $conn = DBHelper::createConnection(DBCONNSTRING2);
         $driversGateway = new Drivers($conn);
         $resultsGateway = new Results($conn);
         $driverDetails = $driversGateway->getDriversByRef($_GET['driverRef']);

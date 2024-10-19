@@ -1,7 +1,7 @@
 <?php
 require_once 'api/db-classes-inc.php';
 require_once 'api/db-helper.inc.php';
-require_once 'api/config.inc.php';
+require_once 'api/config2.inc.php';
 
 $raceResults = [];
 $qualifyingResults = [];
@@ -10,10 +10,11 @@ $top3Winners = [];
 
 
 try {
+    $conn = DBHelper::createConnection(DBCONNSTRING2);
     //Note: for this page we would have liked to put the connection string into a separate file
     //and reference that way, but this was not compatible on both windows and mac despite several
     //attemps to resolve. 
-    $conn = DBHelper::createConnection('sqlite:./data/f1.db');
+
     $racesGateway = new Races($conn);
     $qualifyingGateway = new Qualifying($conn);
     $resultsGateway = new Results($conn);
@@ -138,9 +139,13 @@ function formatConstructorName($constructorRef)
                 </div>
             </section>
         <?php endif; ?>
-
-        <section class="qualifying-content">
-            <?php if (!empty($qualifyingResults)): ?>
+        <?php if (empty($selectedRaceId)): ?>
+            <section class="select-race-message">
+                <h2>Please select a race</h2>
+            </section>
+        <?php endif; ?>
+        <?php if (!empty($qualifyingResults)): ?>
+            <section class="qualifying-content">
                 <h3>Qualifying Results</h3>
                 <table>
                     <thead>
@@ -177,8 +182,8 @@ function formatConstructorName($constructorRef)
             <?php endif; ?>
         </section>
 
-        <section class="results-content">
-            <?php if (!empty($allRaceResults)): ?>
+        <?php if (!empty($allRaceResults)): ?>
+            <section class="results-content">
                 <h3>Race Results</h3>
                 <table>
                     <thead>

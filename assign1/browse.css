@@ -244,3 +244,13 @@ button:hover {
   margin-top: 5px;
   font-size: 0.9rem;
 }
+
+.select-race-message {
+  background-color: #fff;
+  color: #bb2828;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+}
