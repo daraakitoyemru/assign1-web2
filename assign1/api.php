@@ -25,13 +25,13 @@
             <div class="column-1">
                 <h2>URL</h2>
                 <a href="api/circuits.php">/api/circuits.php</a>
-                <a href="api/circuits.php?circuitRef=sepang<">/api/circuits.php?circuitRef=sepang</a>
-                <a href="/api/constructors.php">/api/constructors.php</a>
-                <a href="/api/constructors.php?constructorRef=mclaren">/api/constructors.php?constructorRef=mclaren</a>
-                <a href="/api/drivers.php">/api/drivers.php</a>
-                <a href="/api/drivers.php?driverRef=norris">/api/drivers.php?driverRef=norris</a>
-                <a href="/api/drivers.php?race=1106">/api/drivers.php?race=?</a>
-                <a href="/api/races.php?racesRef=">/api/races.php?racesRef=</a>
+                <a href="api/circuits.php?circuitRef=sepang">/api/circuits.php?circuitRef=sepang</a>
+                <a href="api/constructor.php">/api/constructors.php</a>
+                <a href="api/constructor.php?constructorRef=mclaren">/api/constructors.php?constructorRef=mclaren</a>
+                <a href="api/drivers.php">/api/drivers.php</a>
+                <a href="api/drivers.php?driverRef=norris">/api/drivers.php?driverRef=norris</a>
+                <a href="api/drivers.php?race=1106">/api/drivers.php?race=?</a>
+                <a href="api/races.php?racesRef=">/api/races.php?racesRef=</a>
                 <a href="">/api/races.php</a>
                 <a href="">/api/qualifying.php?qualRef=?</a>
                 <a href="">/api/results.php?resRef=?</a>
