@@ -1,7 +1,5 @@
 <?php
 
-//require_once '../api/db-helper.inc.php';
-
 
 function isCorrectQuery($param)
 {
@@ -11,4 +9,4 @@ function isCorrectQuery($param)
     return false;
 }
 
-//creates an instance of a given object and returns it
+
