@@ -11,9 +11,6 @@ $top3Winners = [];
 
 try {
     $conn = DBHelper::createConnection(DBCONNSTRING2);
-    //Note: for this page we would have liked to put the connection string into a separate file
-    //and reference that way, but this was not compatible on both windows and mac despite several
-    //attemps to resolve. 
 
     $racesGateway = new Races($conn);
     $qualifyingGateway = new Qualifying($conn);
@@ -21,8 +18,8 @@ try {
 
     $raceResults = $racesGateway->getRaces2022();
 
-    if (isset($_POST['raceId'])) {
-        $selectedRaceId = $_POST['raceId'];
+    if (isset($_GET['raceId'])) {
+        $selectedRaceId = $_GET['raceId'];
         $qualifyingResults = $qualifyingGateway->getQualifyingByRaceID($selectedRaceId);
         $allRaceResults = $resultsGateway->getResultsByRaceID($selectedRaceId);
 
@@ -32,7 +29,6 @@ try {
 
         $top3Winners = array_slice($allRaceResults, 0, 3);
         $raceDetails = $racesGateway->getRacesbyRef($selectedRaceId);
-
     }
 } catch (PDOException $e) {
     echo "Error fetching race or qualifying data: " . $e->getMessage();
@@ -83,7 +79,7 @@ function formatConstructorName($constructorRef)
                                 <td><?php echo $race['round']; ?></td>
                                 <td><?php echo $race['raceName']; ?></td>
                                 <td>
-                                    <form method="post" action="browse.php">
+                                    <form method="get" action="browse.php">
                                         <input type="hidden" name="raceId" value="<?php echo $race['raceId']; ?>">
                                         <button type="submit">View Race</button>
                                     </form>
@@ -139,11 +135,13 @@ function formatConstructorName($constructorRef)
                 </div>
             </section>
         <?php endif; ?>
+
         <?php if (empty($selectedRaceId)): ?>
             <section class="select-race-message">
                 <h2>Please select a race</h2>
             </section>
         <?php endif; ?>
+
         <?php if (!empty($qualifyingResults)): ?>
             <section class="qualifying-content">
                 <h3>Qualifying Results</h3>
