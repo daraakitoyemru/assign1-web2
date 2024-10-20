@@ -31,6 +31,7 @@
         </aside>
 
         <section class="main-content">
+            <!-- Photo from Pexels (https://www.pexels.com/search/race%20car/) -->
             <img src="images/race_car.jpg" alt="Race car" class="race-car-img">
         </section>
     </main>
